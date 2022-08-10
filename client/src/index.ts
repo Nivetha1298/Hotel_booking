@@ -7,6 +7,7 @@ import authRoute from "../routes/auth"
 import usersRoute from "../routes/users"
 import hotelsRoute from "../routes/hotels"
 import roomsRoute from "../routes/rooms"
+var cookieParser = require('cookie-parser')
 const bodyparser = require("body-parser");
 
 
@@ -25,9 +26,11 @@ const url :string = process.env.MONGO
 }catch(error){
 handleError(error);
 }}
-
+// to save jwt token in cookie
+app.use(cookieParser())
 // middleware to connect mongo
 app.use(express.json())
+
 
 // middleware
 app.use("/api/auth" , authRoute);

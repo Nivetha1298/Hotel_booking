@@ -4,6 +4,7 @@
   "description": "Awesome project developed with TypeORM.",
   "type": "commonjs",
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.3",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^16.11.47",
     "ts-node": "^10.7.0",
@@ -16,10 +17,14 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.1",
     "nodemon": "^2.0.19",
+    "openssl": "^2.0.0",
+    "random-key": "^0.3.2",
     "reflect-metadata": "^0.1.13"
   },
   "scripts": {

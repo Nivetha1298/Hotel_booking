@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,34 +46,88 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 exports.__esModule = true;
-exports.register = void 0;
+exports.login = exports.register = void 0;
 var bcrypt = require('bcryptjs');
 var User_1 = require("../models/User");
+var error_1 = require("../utils/error");
+var jwt = require('jsonwebtoken');
 var register = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var salt, hash, newUser, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                salt = bcrypt.genSaltSync(10);
-                hash = bcrypt.hashSync(req.body.password);
+                _a.trys.push([0, 4, , 5]);
+                return [4 /*yield*/, bcrypt.genSaltSync(10)];
+            case 1:
+                salt = _a.sent();
+                return [4 /*yield*/, bcrypt.hashSync(req.body.password)];
+            case 2:
+                hash = _a.sent();
                 newUser = new User_1["default"]({
                     username: req.body.username,
                     email: req.body.email,
-                    password: hash
+                    password: hash,
+                    isAdmin: req.body.isAdmin
                 });
                 return [4 /*yield*/, newUser.save()];
-            case 1:
+            case 3:
                 _a.sent();
                 res.status(200).send("User has been created");
-                return [3 /*break*/, 3];
-            case 2:
+                return [3 /*break*/, 5];
+            case 4:
                 err_1 = _a.sent();
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); };
 exports.register = register;
+var login = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, isPasswordCorrect, token, _a, password, isAdmin, otherDetails, err_2;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 3, , 4]);
+                return [4 /*yield*/, User_1["default"].findOne({ username: req.body.username })];
+            case 1:
+                user = _b.sent();
+                if (!user)
+                    return [2 /*return*/, next((0, error_1.createError)(404, "User not found"))];
+                return [4 /*yield*/, bcrypt.compare(req.body.password, user.password)];
+            case 2:
+                isPasswordCorrect = _b.sent();
+                if (!isPasswordCorrect)
+                    return [2 /*return*/, next((0, error_1.createError)(400, "Wrong password or username"))];
+                token = jwt.sign({
+                    id: user._id,
+                    isAdmin: user.isAdmin
+                }, process.env.JWT_KEY, {
+                    expiresIn: "2d"
+                });
+                _a = user._doc, password = _a.password, isAdmin = _a.isAdmin, otherDetails = __rest(_a, ["password", "isAdmin"]);
+                res.cookie("access_token", token, {
+                    httpOnly: true
+                }).status(200).json(__assign({}, otherDetails));
+                return [3 /*break*/, 4];
+            case 3:
+                err_2 = _b.sent();
+                next(err_2);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.login = login;
 //# sourceMappingURL=auth.js.map

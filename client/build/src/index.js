@@ -43,6 +43,7 @@ var auth_1 = require("../routes/auth");
 var users_1 = require("../routes/users");
 var hotels_1 = require("../routes/hotels");
 var rooms_1 = require("../routes/rooms");
+var cookieParser = require('cookie-parser');
 var bodyparser = require("body-parser");
 var app = express();
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -60,6 +61,8 @@ var connect = function () { return __awaiter(void 0, void 0, void 0, function ()
         return [2 /*return*/];
     });
 }); };
+// to save jwt token in cookie
+app.use(cookieParser());
 // middleware to connect mongo
 app.use(express.json());
 // middleware

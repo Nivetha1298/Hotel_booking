@@ -2,13 +2,14 @@
 exports.__esModule = true;
 var express = require("express");
 var hotel_1 = require("../controllers/hotel");
+var verifyToken_1 = require("../utils/verifyToken");
 var router = express.Router();
 // create
-router.post("/", hotel_1.createHotel);
+router.post("/", verifyToken_1.verifyAdmin, hotel_1.createHotel);
 //  update
-router.put("/:id", hotel_1.updateHotel);
+router.put("/:id", verifyToken_1.verifyAdmin, hotel_1.updateHotel);
 //  Delete 
-router["delete"]("/:id", hotel_1.deleteHotel);
+router["delete"]("/:id", verifyToken_1.verifyAdmin, hotel_1.deleteHotel);
 // get by id
 router.get("/:id", hotel_1.gethotelbyid);
 // get all  
