@@ -9,10 +9,12 @@ import hotelsRoute from "../routes/hotels"
 import roomsRoute from "../routes/rooms"
 var cookieParser = require('cookie-parser')
 const bodyparser = require("body-parser");
+var cors = require('cors')
 
 
 const app:express.Application =express();
 app.use(bodyparser.urlencoded({extended:true}))
+app.use(cors())
 
 dotenv.config()
 
@@ -63,7 +65,7 @@ mongoose.connection.on("disconnected" ,()=>{
    
 
 
-app.listen(8000,() =>{
+app.listen(8005,() =>{
     connect()
 
     console.log(" connected backend ");

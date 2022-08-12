@@ -45,8 +45,10 @@ var hotels_1 = require("../routes/hotels");
 var rooms_1 = require("../routes/rooms");
 var cookieParser = require('cookie-parser');
 var bodyparser = require("body-parser");
+var cors = require('cors');
 var app = express();
 app.use(bodyparser.urlencoded({ extended: true }));
+app.use(cors());
 dotenv.config();
 var url = process.env.MONGO;
 var connect = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -84,7 +86,7 @@ app.use(function (err, req, res, next) {
 mongoose_1["default"].connection.on("disconnected", function () {
     console.log("mongo disconnected");
 });
-app.listen(8000, function () {
+app.listen(8005, function () {
     connect();
     console.log(" connected backend ");
 });

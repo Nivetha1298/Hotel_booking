@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { createNoSubstitutionTemplateLiteral } from "typescript";
 import Hotel from "../models/Hotel";
 import { createError } from "../utils/error";
 // *********************************************   CRUD CODE ***********************************************
@@ -57,16 +58,17 @@ export  const gethotelbyid = async (req:Request,res:Response,next)=>{
 
 
 export  const gethotel = async (req:Request,res:Response,next)=>{
-   
+    console.log("hello");
+    const { min, max, ...others } = req.query;
     try {
-     const  hotels =await Hotel.find();
-     res.status(200).json(hotels);
- }
- catch(err){
-    //  res.status(500).json(err)
-    next(err)
- }
-    
+      const hotels = await Hotel.find({
+        ...others,
+        cheapestPrice: { $gt: +min | 1, $lt: max || 999 },
+      }).limit(+req.query.limit);
+      res.status(200).json(hotels);
+    } catch (err) {
+      next(err);
+    }
     
 }
 

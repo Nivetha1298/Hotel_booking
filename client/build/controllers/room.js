@@ -44,7 +44,7 @@ var createRoom = function (req, res, next) { return __awaiter(void 0, void 0, vo
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                hotelId = req.params.hotelId;
+                hotelId = req.params.hotelid;
                 newRoom = new Room_1["default"](req.body);
                 _a.label = 1;
             case 1:
@@ -60,6 +60,7 @@ var createRoom = function (req, res, next) { return __awaiter(void 0, void 0, vo
                     })];
             case 4:
                 _a.sent();
+                console.log("hiiiiiiiiiiiii");
                 return [3 /*break*/, 6];
             case 5:
                 err_1 = _a.sent();
@@ -90,7 +91,7 @@ var updateRoom = function (req, res, next) { return __awaiter(void 0, void 0, vo
                 return [3 /*break*/, 3];
             case 2:
                 err_3 = _a.sent();
-                res.status(500).json(err_3);
+                next(err_3);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
@@ -98,27 +99,44 @@ var updateRoom = function (req, res, next) { return __awaiter(void 0, void 0, vo
 }); };
 exports.updateRoom = updateRoom;
 var deleteRoom = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var err_4;
+    var hotelId, err_4, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, Room_1["default"].findByIdAndDelete(req.params.id)];
+                hotelId = req.params.hotelid;
+                _a.label = 1;
             case 1:
-                _a.sent();
-                res.status(200).json("Room has been deleted");
-                return [3 /*break*/, 3];
+                _a.trys.push([1, 7, , 8]);
+                return [4 /*yield*/, Room_1["default"].findByIdAndDelete(req.params.id)];
             case 2:
+                _a.sent();
+                _a.label = 3;
+            case 3:
+                _a.trys.push([3, 5, , 6]);
+                return [4 /*yield*/, Hotel_1["default"].findByIdAndUpdate(hotelId, {
+                        $pull: { rooms: req.params.id }
+                    })];
+            case 4:
+                _a.sent();
+                return [3 /*break*/, 6];
+            case 5:
                 err_4 = _a.sent();
-                res.status(500).json(err_4);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                next(err_4);
+                return [3 /*break*/, 6];
+            case 6:
+                res.status(200).json("Room has been deleted.");
+                return [3 /*break*/, 8];
+            case 7:
+                err_5 = _a.sent();
+                next(err_5);
+                return [3 /*break*/, 8];
+            case 8: return [2 /*return*/];
         }
     });
 }); };
 exports.deleteRoom = deleteRoom;
 var getroombyid = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var room, err_5;
+    var room, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -129,8 +147,8 @@ var getroombyid = function (req, res, next) { return __awaiter(void 0, void 0, v
                 res.status(200).json(room);
                 return [3 /*break*/, 3];
             case 2:
-                err_5 = _a.sent();
-                res.status(500).json(err_5);
+                err_6 = _a.sent();
+                res.status(500).json(err_6);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
@@ -138,7 +156,7 @@ var getroombyid = function (req, res, next) { return __awaiter(void 0, void 0, v
 }); };
 exports.getroombyid = getroombyid;
 var getroom = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var rooms, err_6;
+    var rooms, err_7;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -149,9 +167,9 @@ var getroom = function (req, res, next) { return __awaiter(void 0, void 0, void 
                 res.status(200).json(rooms);
                 return [3 /*break*/, 3];
             case 2:
-                err_6 = _a.sent();
+                err_7 = _a.sent();
                 //  res.status(500).json(err)
-                next(err_6);
+                next(err_7);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }

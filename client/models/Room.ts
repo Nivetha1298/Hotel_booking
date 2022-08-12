@@ -3,6 +3,7 @@ const RoomSchema = new mongoose.Schema(
   {
     title: {
       type: String,
+     
       required: true,
     },
     price: {
@@ -15,6 +16,7 @@ const RoomSchema = new mongoose.Schema(
     },
     desc: {
       type: String,
+     
       required: true,
     },
     roomNumbers: [{ number: Number, unavailableDates: {type: [Date]}}],

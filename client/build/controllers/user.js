@@ -52,7 +52,7 @@ var updateUser = function (req, res, next) { return __awaiter(void 0, void 0, vo
                 return [3 /*break*/, 3];
             case 2:
                 err_1 = _a.sent();
-                res.status(500).json(err_1);
+                next(err_1);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
@@ -68,11 +68,11 @@ var deleteUser = function (req, res, next) { return __awaiter(void 0, void 0, vo
                 return [4 /*yield*/, User_1["default"].findByIdAndDelete(req.params.id)];
             case 1:
                 _a.sent();
-                res.status(200).json("User has been deleted");
+                res.status(200).json("User has been deleted.");
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
-                res.status(500).json(err_2);
+                next(err_2);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
@@ -92,7 +92,7 @@ var getUserbyid = function (req, res, next) { return __awaiter(void 0, void 0, v
                 return [3 /*break*/, 3];
             case 2:
                 err_3 = _a.sent();
-                res.status(500).json(err_3);
+                next(err_3);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
@@ -112,7 +112,6 @@ var getUsers = function (req, res, next) { return __awaiter(void 0, void 0, void
                 return [3 /*break*/, 3];
             case 2:
                 err_4 = _a.sent();
-                //  res.status(500).json(err)
                 next(err_4);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
