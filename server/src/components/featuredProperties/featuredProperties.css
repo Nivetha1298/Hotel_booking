@@ -22,10 +22,12 @@
 .fpName{
     font-weight: bold;
     font-family: Arial;
+    text-transform: capitalize;
 }
 .fpCity{
     font-weight: 300;
     font-family: Arial;
+    text-transform: capitalize;
 }
 .fpPrice {
     font-weight: 500;
