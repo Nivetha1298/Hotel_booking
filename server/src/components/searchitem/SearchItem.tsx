@@ -28,7 +28,7 @@ import "./searchItem.css"
       </div>}
       <div className="siDetailTexts">
         <span className="siPrice">&#8377;{item.cheapestPrice}</span>
-      <Link to={`http://localhost:8005/api/hotels/${item._id}`}>
+      <Link to={`${item._id}`}>
         <button className="siCheckButton">See availability</button>
         </Link>
       </div>

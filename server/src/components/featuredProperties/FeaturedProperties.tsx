@@ -3,6 +3,7 @@ import useFetch from '../../hooks/useFetch'
 import "./featuredProperties.css"
 
 const FeaturedProperties = () => {
+  // Fetching backend
    const {data ,loading ,error}=useFetch("http://localhost:8005/api/hotels?featured=true&limit=3")
    return (
     <div className="fp">
@@ -19,7 +20,7 @@ const FeaturedProperties = () => {
               />
               <span className="fpName">{item.name}</span>
               <span className="fpCity">{item.city}</span>
-              <span className="fpPrice">Starting from ${item.cheapestPrice}</span>
+              <span className="fpPrice">Starting from &#8377;{item.cheapestPrice}</span>
               {item.rating && <div className="fpRating">
                 <button>{item.rating}</button>
                 <span>Excellent</span>

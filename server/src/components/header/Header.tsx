@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import "./header.css"
 import {FontAwesomeIcon}from "@fortawesome/react-fontawesome"
 import{faBed} from "@fortawesome/free-solid-svg-icons"
@@ -11,11 +11,13 @@ import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import{format} from  "date-fns"
 import { useNavigate } from 'react-router-dom'
+import { SearchContext } from '../../context/SearchContext'
+import { AuthContext } from '../../context/AuthContext'
 
 
 const Header = (props:any) => {
     const [openDate ,setOpenDate]= useState(false)
-    const [date ,setDate] = useState<any>([{
+    const [dates ,setDates] = useState<any>([{
         startDate:new Date(),
         endDate: new Date() ,
         key: "selection" ,
@@ -45,11 +47,17 @@ const Header = (props:any) => {
     }
     const  navigate = useNavigate()
 
-    const handleSearch=()=>{
-        navigate("/hotels" ,{state:{destination , date,options}})
+// passing it from search context
+        const {dispatch} =useContext(SearchContext)
+        const handleSearch=()=>{
+            window.sessionStorage.setItem("key"  ,JSON.stringify ({city:destination  , dates:dates , options:options}))
+            dispatch({type:"NEW_SEARCH" , payload:{destination,dates ,options}})
+        navigate("/hotels" ,{state:{destination , dates,options}})
            
     
     }
+
+    const {user}=useContext(AuthContext);
  
  
     return (
@@ -69,7 +77,7 @@ props.type !=="list" &&
     Get rewarded for your travels - unlock instant savings of 10% or more
     with a free Hotelbooking account 
 </p>
-<button className='headerBtn'>Sign in /Register</button>
+{!user && <button className="headerBtn">Sign in / Register</button>}
 <div  className='headerSearch'>
     <div  className='headerSearchItem'>
         <FontAwesomeIcon icon={faBed} className="headerIcon"/>
@@ -81,15 +89,15 @@ props.type !=="list" &&
     </div>
     <div  className='headerSearchItem'>
         <FontAwesomeIcon icon={faCalendarDays} className="headerIcon"/>
-       <span className='headerSearchText' onClick={()=>setOpenDate(!openDate)}>{`${format(date[0].startDate , "dd/MM/yyyy")}
+       <span className='headerSearchText' onClick={()=>setOpenDate(!openDate)}>{`${format(dates[0].startDate , "dd/MM/yyyy")}
 
-        to ${format(date[0].endDate , "MM/dd/yyyy")}`}</span>   
+        to ${format(dates[0].endDate , "MM/dd/yyyy")}`}</span>   
 
        {openDate &&<DateRange 
        editableDateInputs={true} 
-       onChange={(item) =>setDate([item.selection])}
+       onChange={(item) =>setDates([item.selection])}
        moveRangeOnFirstSelection ={false}
-       ranges={date}
+       ranges={dates}
        minDate={new Date()}
        className="date"
        />}

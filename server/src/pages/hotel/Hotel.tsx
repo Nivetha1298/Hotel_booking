@@ -2,29 +2,55 @@ import "./hotel.css"
 
 import { faCircle, faCircleArrowLeft, faCircleArrowRight, faCircleXmark, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/header/Header'
 import MailList from '../../components/mailList/MailList'
 import Navbar from '../../components/navbar/Navbar'
 import useFetch from "../../hooks/useFetch"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { SearchContext } from "../../context/SearchContext"
+import { AuthContext } from "../../context/AuthContext"
+import Reserve from "../../components/reserve/Reserve"
 
 
 const Hotel = () => {
 
 const location:any = useLocation()
 console.log(location);
+
 const id=location.pathname.split("/")[2]
   const [slideNumber ,setSlideNumber]=useState (0);
   const [openModel , setOpenModel] =useState(false);
+  const [openRoom , setOpenRoom]  = useState(false);
   const  {data ,loading ,error  }=useFetch(`api/hotels/${id}`);
 
- 
+ const {dates , options} = useContext(SearchContext);
+ const {user} =useContext(AuthContext);
+ const navigate = useNavigate()
 
+ console.log("Hello Nivetha")
+
+ console.log("Search:" ,SearchContext);
+ 
+console.log();
+ const MILLISECONDS_PER_DAY =1000*60*60*24 ;
+ console.log(MILLISECONDS_PER_DAY);
+
+ function dayDifference(date1 ,date2){
+  const start =new Date(date1);
+            const end =new Date(date2) ;
+  const timeDiff =Math.abs(end?.getTime()-start?.getTime());
+  const diffDays =Math.ceil(timeDiff/MILLISECONDS_PER_DAY );
+  return diffDays;
+ }
+//  const days=0 ;
+const days=(dayDifference(dates[0]?.endDate , dates[0]?.startDate))
   const handleOpen=(i:any)=>{
     setSlideNumber(i);
     setOpenModel(true);
   };
+  console.log( " Dates "+  dates[0]?.startDate   );
+  
   const handleMove = (direction: string) => {
     let newSlideNumber;
 
@@ -37,7 +63,14 @@ const id=location.pathname.split("/")[2]
     setSlideNumber(newSlideNumber)
   };
 
-  
+  const handleClick = ()=>{
+                               if(user) {
+                                setOpenRoom(true);
+                               }
+                               else{
+                                navigate("/login")
+                               }
+  }
   return (
     <div>
         <Navbar/>
@@ -56,7 +89,7 @@ const id=location.pathname.split("/")[2]
 
           </div>)}
           <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
+        
             <h1 className="hotelTitle"> {data?.name}</h1>
             <div className="hotelAddress">
               <FontAwesomeIcon icon={faLocationDot}/>
@@ -84,20 +117,21 @@ const id=location.pathname.split("/")[2]
               </p>
             </div>
             <div className="hotelDetailsPrice">
-              <h1>Perfect for a 9-night stay!</h1>
+              <h1>Perfect for a {days}-night stay!</h1>
               <span>
                 Located in the real heart of chennai, this property has an
                 excellent location score of 9.8!
               </span>
               <h2>
-                <b>&#8377;945</b> (9 nights)
+                <b>&#8377;{days * data?.cheapestPrice * options.room}</b> ({days} nights)
               </h2>
-              <button>Reserve or Book Now!</button>
+              <button   onClick={handleClick}>Reserve or Book Now!</button>
             </div>
           </div>
           </div>
+          <MailList/>
         </div>)}
-        <MailList/>
+ {openRoom    && <Reserve setOpenModel={setOpenRoom} hotelId={id}/>}
 
     </div>
   )
