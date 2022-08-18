@@ -4,6 +4,7 @@ import User from "../models/User";
 import { createError } from "../utils/error";
 const jwt =require('jsonwebtoken')
 
+// Authentication for Register
 
 export const  register = async(req:Request ,res:Response,next)=>{
     try{
@@ -26,6 +27,8 @@ export const  register = async(req:Request ,res:Response,next)=>{
     }
 
 }
+
+//Authentication for login
 export const  login = async(req:Request ,res:Response,next)=>{
     try{
 

@@ -3,7 +3,10 @@ import Hotel from "../models/Hotel";
 import{createError}from "../utils/error"
 import { Request, Response } from "express";
  
+// *******************************************************************  CRUD CODE FOR ROOM******************************************************
 
+
+// CREATING A ROOM 
 export const  createRoom  = async(req:Request   , res:Response   ,next)=>{
     const hotelId = req.params.hotelid;
     const newRoom = new Room(req.body);
@@ -27,7 +30,7 @@ export const  createRoom  = async(req:Request   , res:Response   ,next)=>{
     }
 }
 
-
+// UPDATING A ROOM
 export  const updateRoom = async (req:Request,res:Response,next)=>{
     try{
         const updateRoom = await Room.findByIdAndUpdate(req.params.id  ,{$set:req.body} , {new:true})
@@ -40,7 +43,7 @@ export  const updateRoom = async (req:Request,res:Response,next)=>{
        }
 
 } 
-
+// DELETING A ROOM
 export  const deleteRoom = async (req:Request,res:Response,next)=>{
     const hotelId = req.params.hotelid;
     try {
@@ -58,7 +61,7 @@ export  const deleteRoom = async (req:Request,res:Response,next)=>{
     }
 
 }
-
+// GET ROOM BY ID
 export  const getroombyid = async (req:Request,res:Response,next)=>{
     
     try {
@@ -72,7 +75,7 @@ export  const getroombyid = async (req:Request,res:Response,next)=>{
     }
 }
 
-
+// GET ALL ROOMS
 export  const getroom = async (req:Request,res:Response,next)=>{
    
     try {

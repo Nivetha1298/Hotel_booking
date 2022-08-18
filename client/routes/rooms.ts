@@ -4,7 +4,7 @@ import { createRoom, deleteRoom, getroom, getroombyid, updateRoom } from "../con
 
 
 import { verifyAdmin } from "../utils/verifyToken";
-
+// ROUTING FOR ROOMS
 const router =express.Router();
 // create
  router.post("/:hotelid"  ,verifyAdmin, createRoom ) 

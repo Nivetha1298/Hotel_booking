@@ -39,6 +39,8 @@ exports.__esModule = true;
 exports.getroom = exports.getroombyid = exports.deleteRoom = exports.updateRoom = exports.createRoom = void 0;
 var Room_1 = require("../models/Room");
 var Hotel_1 = require("../models/Hotel");
+// *******************************************************************  CRUD CODE FOR ROOM******************************************************
+// CREATING A ROOM 
 var createRoom = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var hotelId, newRoom, savedRoom, err_1, err_2;
     return __generator(this, function (_a) {
@@ -78,6 +80,7 @@ var createRoom = function (req, res, next) { return __awaiter(void 0, void 0, vo
     });
 }); };
 exports.createRoom = createRoom;
+// UPDATING A ROOM
 var updateRoom = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var updateRoom_1, err_3;
     return __generator(this, function (_a) {
@@ -98,6 +101,7 @@ var updateRoom = function (req, res, next) { return __awaiter(void 0, void 0, vo
     });
 }); };
 exports.updateRoom = updateRoom;
+// DELETING A ROOM
 var deleteRoom = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var hotelId, err_4, err_5;
     return __generator(this, function (_a) {
@@ -135,6 +139,7 @@ var deleteRoom = function (req, res, next) { return __awaiter(void 0, void 0, vo
     });
 }); };
 exports.deleteRoom = deleteRoom;
+// GET ROOM BY ID
 var getroombyid = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var room, err_6;
     return __generator(this, function (_a) {
@@ -155,6 +160,7 @@ var getroombyid = function (req, res, next) { return __awaiter(void 0, void 0, v
     });
 }); };
 exports.getroombyid = getroombyid;
+// GET ALL ROOMS
 var getroom = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var rooms, err_7;
     return __generator(this, function (_a) {

@@ -60,7 +60,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 exports.__esModule = true;
 exports.gethotel = exports.gethotelbyid = exports.deleteHotel = exports.updateHotel = exports.createHotel = void 0;
 var Hotel_1 = require("../models/Hotel");
-// *********************************************   CRUD CODE ***********************************************
+// *********************************************   CRUD CODE    for hotel ***********************************************
+// Creating a hotel
 var createHotel = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var newHotel, savedHotel, err_1;
     return __generator(this, function (_a) {
@@ -84,6 +85,7 @@ var createHotel = function (req, res, next) { return __awaiter(void 0, void 0, v
     });
 }); };
 exports.createHotel = createHotel;
+// Update a hotel
 var updateHotel = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var updateHotel_1, err_2;
     return __generator(this, function (_a) {
@@ -104,6 +106,7 @@ var updateHotel = function (req, res, next) { return __awaiter(void 0, void 0, v
     });
 }); };
 exports.updateHotel = updateHotel;
+// delete a hotel
 var deleteHotel = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var err_3;
     return __generator(this, function (_a) {
@@ -124,6 +127,7 @@ var deleteHotel = function (req, res, next) { return __awaiter(void 0, void 0, v
     });
 }); };
 exports.deleteHotel = deleteHotel;
+// getting a hotel by id
 var gethotelbyid = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var hotel, err_4;
     return __generator(this, function (_a) {
@@ -144,6 +148,7 @@ var gethotelbyid = function (req, res, next) { return __awaiter(void 0, void 0, 
     });
 }); };
 exports.gethotelbyid = gethotelbyid;
+// get all hotels
 var gethotel = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, min, max, others, hotels, err_5;
     return __generator(this, function (_b) {

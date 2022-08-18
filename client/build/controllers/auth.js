@@ -63,6 +63,7 @@ var bcrypt = require('bcryptjs');
 var User_1 = require("../models/User");
 var error_1 = require("../utils/error");
 var jwt = require('jsonwebtoken');
+// Authentication for Register
 var register = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var salt, hash, newUser, err_1;
     return __generator(this, function (_a) {
@@ -94,6 +95,7 @@ var register = function (req, res, next) { return __awaiter(void 0, void 0, void
     });
 }); };
 exports.register = register;
+//Authentication for login
 var login = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var user, isPasswordCorrect, token, _a, password, isAdmin, otherDetails, err_2;
     return __generator(this, function (_b) {

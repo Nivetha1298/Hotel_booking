@@ -3,6 +3,7 @@ exports.__esModule = true;
 var express = require("express");
 var hotel_1 = require("../controllers/hotel");
 var verifyToken_1 = require("../utils/verifyToken");
+// ROUTING FOR HOTELS
 var router = express.Router();
 // create
 router.post("/", verifyToken_1.verifyAdmin, hotel_1.createHotel);

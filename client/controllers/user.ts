@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 import { createError } from "../utils/error"; 
-// *********************************************   CRUD CODE  for user ***********************************************
+// *********************************************   CRUD CODE  for LOGIN  USERS***********************************************
 
 
-
+// UPDATING A USER
 export  const updateUser = async (req:Request,res:Response,next)=>{
     try {
         const updatedUser = await User.findByIdAndUpdate(
@@ -18,7 +18,7 @@ export  const updateUser = async (req:Request,res:Response,next)=>{
       }
 
 } 
-
+// DELETING A USER
 export  const deleteUser = async (req:Request,res:Response,next)=>{
     try {
         await User.findByIdAndDelete(req.params.id);
@@ -28,7 +28,7 @@ export  const deleteUser = async (req:Request,res:Response,next)=>{
       }
 
 }
-
+// GET USER BY ID
 export  const getUserbyid = async (req:Request,res:Response,next)=>{
     
     try {
@@ -39,7 +39,7 @@ export  const getUserbyid = async (req:Request,res:Response,next)=>{
       }
 }
 
-
+// GET ALL USERS
 export  const getUsers = async (req:Request,res:Response,next)=>{
    
     try {

@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
 import { createNoSubstitutionTemplateLiteral } from "typescript";
 import Hotel from "../models/Hotel";
+import Room from "../models/Room";
 import { createError } from "../utils/error";
-// *********************************************   CRUD CODE ***********************************************
+// *********************************************   CRUD CODE    for hotel ***********************************************
+
+// Creating a hotel
 export  const createHotel = async (req:Request,res:Response,next)=>{
     const  newHotel = new Hotel(req.body);
     try{
@@ -17,7 +20,7 @@ export  const createHotel = async (req:Request,res:Response,next)=>{
 
 }
 
-
+// Update a hotel
 export  const updateHotel = async (req:Request,res:Response,next)=>{
     try{
         const updateHotel = await Hotel.findByIdAndUpdate(req.params.id  ,{$set:req.body} , {new:true})
@@ -30,7 +33,7 @@ export  const updateHotel = async (req:Request,res:Response,next)=>{
        }
 
 } 
-
+// delete a hotel
 export  const deleteHotel = async (req:Request,res:Response,next)=>{
     try{
         await Hotel.findByIdAndDelete(req.params.id);
@@ -42,7 +45,7 @@ export  const deleteHotel = async (req:Request,res:Response,next)=>{
     }
 
 }
-
+// getting a hotel by id
 export  const gethotelbyid = async (req:Request,res:Response,next)=>{
     
     try {
@@ -56,7 +59,7 @@ export  const gethotelbyid = async (req:Request,res:Response,next)=>{
     }
 }
 
-
+// get all hotels
 export  const gethotel = async (req:Request,res:Response,next)=>{
     console.log("hello");
     const { min, max, ...others } = req.query;
@@ -71,6 +74,27 @@ export  const gethotel = async (req:Request,res:Response,next)=>{
     }
     
 }
+
+// getrooms 
+export const getHotelRooms =  async (req,res,next)=>{
+    try{
+        const hotel = await Hotel.findById(req.params.id);
+        const list = await Promise.all(
+
+           hotel.rooms.map((room)=>{
+              return Room.findById(room);
+           })
+        );
+        res.status(200).json(list)
+    }
+    catch(err){
+        next(err);
+    }
+}   
+
+
+
+
 
 
 

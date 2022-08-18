@@ -38,7 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.getUsers = exports.getUserbyid = exports.deleteUser = exports.updateUser = void 0;
 var User_1 = require("../models/User");
-// *********************************************   CRUD CODE  for user ***********************************************
+// *********************************************   CRUD CODE  for LOGIN  USERS***********************************************
+// UPDATING A USER
 var updateUser = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var updatedUser, err_1;
     return __generator(this, function (_a) {
@@ -59,6 +60,7 @@ var updateUser = function (req, res, next) { return __awaiter(void 0, void 0, vo
     });
 }); };
 exports.updateUser = updateUser;
+// DELETING A USER
 var deleteUser = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var err_2;
     return __generator(this, function (_a) {
@@ -79,6 +81,7 @@ var deleteUser = function (req, res, next) { return __awaiter(void 0, void 0, vo
     });
 }); };
 exports.deleteUser = deleteUser;
+// GET USER BY ID
 var getUserbyid = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var user, err_3;
     return __generator(this, function (_a) {
@@ -99,6 +102,7 @@ var getUserbyid = function (req, res, next) { return __awaiter(void 0, void 0, v
     });
 }); };
 exports.getUserbyid = getUserbyid;
+// GET ALL USERS
 var getUsers = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var users, err_4;
     return __generator(this, function (_a) {

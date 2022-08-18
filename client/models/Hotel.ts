@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+// DATABASE FOR HOTEL
 
 const HotelSchema = new mongoose.Schema({
 
