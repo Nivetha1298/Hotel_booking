@@ -58,8 +58,9 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 exports.__esModule = true;
-exports.gethotel = exports.gethotelbyid = exports.deleteHotel = exports.updateHotel = exports.createHotel = void 0;
+exports.getHotelRooms = exports.gethotel = exports.gethotelbyid = exports.deleteHotel = exports.updateHotel = exports.createHotel = void 0;
 var Hotel_1 = require("../models/Hotel");
+var Room_1 = require("../models/Room");
 // *********************************************   CRUD CODE    for hotel ***********************************************
 // Creating a hotel
 var createHotel = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
@@ -173,4 +174,30 @@ var gethotel = function (req, res, next) { return __awaiter(void 0, void 0, void
     });
 }); };
 exports.gethotel = gethotel;
+// getrooms 
+var getHotelRooms = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var hotel, list, err_6;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                return [4 /*yield*/, Hotel_1["default"].findById(req.params.id)];
+            case 1:
+                hotel = _a.sent();
+                return [4 /*yield*/, Promise.all(hotel.rooms.map(function (room) {
+                        return Room_1["default"].findById(room);
+                    }))];
+            case 2:
+                list = _a.sent();
+                res.status(200).json(list);
+                return [3 /*break*/, 4];
+            case 3:
+                err_6 = _a.sent();
+                next(err_6);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getHotelRooms = getHotelRooms;
 //# sourceMappingURL=hotel.js.map

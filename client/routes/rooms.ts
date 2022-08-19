@@ -1,6 +1,6 @@
 import * as express from "express"
 import { Request, Response } from 'express';
-import { createRoom, deleteRoom, getroom, getroombyid, updateRoom } from "../controllers/room";
+import { createRoom, deleteRoom, getroom, getroombyid, updateRoom, updateRoomAvailability } from "../controllers/room";
 
 
 import { verifyAdmin } from "../utils/verifyToken";
@@ -15,6 +15,9 @@ const router =express.Router();
 
 //  update
  router.put("/:id"  ,  verifyAdmin ,updateRoom)
+//  Updating Availability room , unavailableid
+ router.put("/availability/:id"  ,updateRoomAvailability)
+
 
 //  Delete 
 router.delete("/:id/:hotelid" ,  verifyAdmin , deleteRoom)

@@ -15,5 +15,7 @@ router["delete"]("/:id", verifyToken_1.verifyAdmin, hotel_1.deleteHotel);
 router.get("/:id", hotel_1.gethotelbyid);
 // get all  
 router.get("/", hotel_1.gethotel);
+// room/hotelid
+router.get("/room/:id", hotel_1.getHotelRooms);
 exports["default"] = router;
 //# sourceMappingURL=hotels.js.map

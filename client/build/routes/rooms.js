@@ -9,6 +9,8 @@ var router = express.Router();
 router.post("/:hotelid", verifyToken_1.verifyAdmin, room_1.createRoom);
 //  update
 router.put("/:id", verifyToken_1.verifyAdmin, room_1.updateRoom);
+//  Updating Availability room , unavailableid
+router.put("/availability/:id", room_1.updateRoomAvailability);
 //  Delete 
 router["delete"]("/:id/:hotelid", verifyToken_1.verifyAdmin, room_1.deleteRoom);
 // get by id
