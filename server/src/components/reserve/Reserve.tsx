@@ -1,13 +1,16 @@
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { listenerCancelled } from '@reduxjs/toolkit/dist/listenerMiddleware/exceptions'
-import React, { useContext, useState } from 'react'
+import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { SearchContext } from '../../context/SearchContext'
 import useFetch from '../../hooks/useFetch'
 import "./reserve.css"
 
 const Reserve = ({setOpenModel , hotelId}) => {
     const [selectedRooms , setSelectedRooms] = useState([])
+    let filledRooms = []
     const {dates}=useContext(SearchContext)
         const{data , loading ,error} = useFetch(`http://localhost:8005/api/hotels/room/${hotelId}`)
         console.log(dates,"dsrgfe");
@@ -36,6 +39,7 @@ let list=[]
         // the room is not filled 
          return !isFound
      }
+
         const handleSelect =(e)=>{
             const checked = e.target.checked;
             const value = e.target.value;
@@ -45,42 +49,95 @@ let list=[]
                 
             );
         };
-        const handleClick=()=>{
+        const   navigate = useNavigate()
+        const handleClick=async()=>{
+console.log("reservenow");
+            try{
+                await Promise.all(
+                    selectedRooms.map(async roomId=>{
+                    const res=await axios.put(`http://localhost:8005/api/rooms/availability/${roomId}`,
+                        {
+                            dates: alldates,
+                        });
+                    return res.data
+                }));
+                setOpenModel(false);
+                navigate("/")
+                //isAllRoomsFilled();
+
+            }  catch(err){
+
+            }
+
 
         }
         console.log(selectedRooms)
-        
+        //Rooms filled or not
+        const isAllRoomsFilled = ()=>{
+            try {
+                const total = data.map((item)=>{
+                    item.roomNumbers.map((roomNumber)=>{
+                        if(isAvailable(roomNumber)){
+                            console.log(roomNumber)
+                        }else{
+                            filledRooms.push(item)
+                            //window.sessionStorage.setItem('filled',JSON.stringify({filledRooms:filledRooms}))
+                            
+                        }
+                    })
+                    return item.roomNumbers.length
+                   })
+                    let totalSum = 0;
+                    for(let i = 0;i<total.length;i++){
+                        totalSum = totalSum+total[i]
+                    }
+                    console.log(totalSum,filledRooms.length)
+                   if(totalSum === filledRooms.length){
+                    return true
+                   }else{
+                    return false
+                   }
+            } catch (error) {
+                
+            }
+
+        }
+        // useEffect(()=>{
+        //     isAllRoomsFilled()
+        // })
   return (
     <div className='reserve'>
         <div className="rContainer">
         
             <FontAwesomeIcon  icon={faCircleXmark} className="rClose" onClick={ ()=>setOpenModel(false)}/>
             <span>Select your Rooms:</span>
-            {data&&data.map(item=>(
-                <div key={item._id}>
-                <div className="rItem">
-                    <div className="rItemInfo">
-                       <div className="rTitle"><b>{item?.title}</b></div>
-                        <div className="rDesc">{item?.desc} </div>
-                        <div className="rMax">Max People:<b>{item?.maxPeople}</b></div>
-                        <div className="rPrice"><b>{item?.price}</b></div>
-
-
-
+            {data ? (
+                data.map(item=>(
+                    <div key={item._id}>
+                    <div className="rItem">
+                        <div className="rItemInfo">
+                           <div className="rTitle"><b>{item?.title}</b></div>
+                            <div className="rDesc">{item?.desc} </div>
+                            <div className="rMax">Max People:<b>{item?.maxPeople}</b></div>
+                            <div className="rPrice"><b>{item?.price}</b></div>
+    
+    
+    
+                        </div>
+                        <div className="rSelectRooms">
+                        {item.roomNumbers.map((roomNumber)=>(
+                        <div key={roomNumber._id}>
+                            <div className="room">
+                                <label>{roomNumber.number}</label>
+                                <input type="checkbox" value={roomNumber._id} onChange={handleSelect}   disabled={!isAvailable(roomNumber)}/>
+                            </div>
+                            </div>
+                        ))}</div>
                     </div>
-                    <div className="rSelectRooms">
-                    {item.roomNumbers.map((roomNumber)=>(
-                    <div key={roomNumber._id}>
-                        <div className="room">
-                            <label>{roomNumber.number}</label>
-                            <input type="checkbox" value={roomNumber._id} onChange={handleSelect}   disabled={!isAvailable(roomNumber)}/>
-                        </div>
-                        </div>
-                    ))}</div>
-                </div>
-                </div>
-            ))} 
-          <button  onClick={handleClick} className="rButton">Reserve Now!</button>
+                    </div>
+                ))
+            ):null} 
+          <button  onClick={handleClick} className="rButton" disabled={isAllRoomsFilled()}>Reserve Now!</button>
         </div>
        </div>
   )

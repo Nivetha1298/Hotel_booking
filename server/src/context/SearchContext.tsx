@@ -3,9 +3,9 @@ import { useReducer } from "react";
 import { createContext,  } from "react";
 
 const INITIAL_STATE = {
-  city: JSON.parse(window.sessionStorage.getItem("key")).city?JSON.parse(window.sessionStorage.getItem("key")).city:undefined,
-  dates:JSON.parse(window.sessionStorage.getItem("key")).dates?JSON.parse(window.sessionStorage.getItem("key")).dates: [],
-  options:JSON.parse(window.sessionStorage.getItem("key")).options?JSON.parse(window.sessionStorage.getItem("key")).options: {
+  city: JSON.parse(window.sessionStorage.getItem("key"))?JSON.parse(window.sessionStorage.getItem("key")).city:undefined,
+  dates:JSON.parse(window.sessionStorage.getItem("key"))?JSON.parse(window.sessionStorage.getItem("key")).dates: [],
+  options:JSON.parse(window.sessionStorage.getItem("key"))?JSON.parse(window.sessionStorage.getItem("key")).options: {
     adult: undefined,
     children: undefined,
     room: undefined,
