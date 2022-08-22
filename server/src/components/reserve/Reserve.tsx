@@ -84,6 +84,7 @@ console.log("reservenow");
                             //window.sessionStorage.setItem('filled',JSON.stringify({filledRooms:filledRooms}))
                             
                         }
+
                     })
                     return item.roomNumbers.length
                    })
@@ -100,7 +101,8 @@ console.log("reservenow");
             } catch (error) {
                 
             }
-
+                                      
+                                     
         }
         // useEffect(()=>{
         //     isAllRoomsFilled()
