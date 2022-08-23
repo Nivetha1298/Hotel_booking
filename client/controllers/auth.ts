@@ -10,12 +10,16 @@ export const  register = async(req:Request ,res:Response,next)=>{
     try{
                            //encrypting password
         const  salt = await bcrypt.genSaltSync(10);
-        const  hash  =  await bcrypt.hashSync(req.body.password)
+        const  hash  =  await bcrypt.hashSync(req.body.password,salt)
              const  newUser = new User({
                 username :req.body.username ,
                 email :req.body.email ,
                 password:hash ,
-                isAdmin : req.body.isAdmin
+                isAdmin : req.body.isAdmin,
+                img:req.body.img , 
+                phone:req.body.phone ,
+                city:req.body.city 
+
              })
 
              await newUser.save()
@@ -23,7 +27,7 @@ export const  register = async(req:Request ,res:Response,next)=>{
            
 
     }  catch(err){
-
+                             
     }
 
 }

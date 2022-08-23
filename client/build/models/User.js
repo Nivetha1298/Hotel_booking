@@ -13,6 +13,15 @@ var UserSchema = new mongoose_1["default"].Schema({
         required: true,
         unique: true
     },
+    img: {
+        type: String
+    },
+    city: {
+        type: String
+    },
+    phone: {
+        type: String
+    },
     password: {
         type: String,
         required: true

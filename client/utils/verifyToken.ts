@@ -1,5 +1,6 @@
 const jwt =require('jsonwebtoken')
 import { Request, Response } from "express"
+import User from "../models/User";
 import  {createError}from "../utils/error"
 export const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token;
@@ -23,12 +24,18 @@ export const verifyToken = (req, res, next) => {
       }
     });
   };
-  export const verifyAdmin = (req, res, next) => {
-    verifyToken(req, res,  () => {
-      if (req.user.isAdmin) {
+  export const verifyAdmin = async(req, res, next) => {
+  
+    verifyToken(req, res, async () => {
+      const isadmin = req.headers.userss;
+      const _id = JSON.parse(isadmin)._id
+      console.log(isadmin);
+      const isAdmin= (await User.findById(_id)).isAdmin
+    
+      if (isAdmin) {
         next();
       } else {
         return next(createError(403, "You are not authorized!"));
-      }
+       }
     });
   };

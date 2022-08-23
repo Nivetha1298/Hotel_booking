@@ -73,14 +73,17 @@ var register = function (req, res, next) { return __awaiter(void 0, void 0, void
                 return [4 /*yield*/, bcrypt.genSaltSync(10)];
             case 1:
                 salt = _a.sent();
-                return [4 /*yield*/, bcrypt.hashSync(req.body.password)];
+                return [4 /*yield*/, bcrypt.hashSync(req.body.password, salt)];
             case 2:
                 hash = _a.sent();
                 newUser = new User_1["default"]({
                     username: req.body.username,
                     email: req.body.email,
                     password: hash,
-                    isAdmin: req.body.isAdmin
+                    isAdmin: req.body.isAdmin,
+                    img: req.body.img,
+                    phone: req.body.phone,
+                    city: req.body.city
                 });
                 return [4 /*yield*/, newUser.save()];
             case 3:
@@ -121,7 +124,7 @@ var login = function (req, res, next) { return __awaiter(void 0, void 0, void 0,
                 _a = user._doc, password = _a.password, isAdmin = _a.isAdmin, otherDetails = __rest(_a, ["password", "isAdmin"]);
                 res.cookie("access_token", token, {
                     httpOnly: true
-                }).status(200).json(__assign({}, otherDetails));
+                }).status(200).json({ details: __assign({}, otherDetails), isAdmin: isAdmin });
                 return [3 /*break*/, 4];
             case 3:
                 err_2 = _b.sent();
