@@ -26,7 +26,7 @@ interface Hotel{
 //   desc:string;
 //   roomNumbers:any[];
 // }
-export const api = axios.create({baseURL:"http://localhost:8005/"})
+export const api = axios.create({baseURL:"http://localhost:8005/api"   , headers:{Userss:localStorage.getItem(`user`)}})
 const useFetch = (url) => {
   const [data, setData] = useState<Hotel|any>();
   const [loading, setLoading] = useState(false);

@@ -20,11 +20,7 @@ export const userColumns = [
       width: 230,
     },
   
-    {
-      field: "country",
-      headerName: "Country",
-      width: 100,
-    },
+    
     {
       field: "city",
       headerName: "City",

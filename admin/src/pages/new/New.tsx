@@ -7,25 +7,27 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState();
   const [info, setInfo] = useState({});
-
+  const navigate = useNavigate()
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleClick = async (e) => {
     e.preventDefault();
+   
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", "upload");
+    data.append("upload_preset", "qqwgak9b");
     try {
       const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/lamadev/image/upload",
+        "https://api.cloudinary.com/v1_1/dyhxtfvnd/image/upload",
         data
-      );
+      )
 
       const { url } = uploadRes.data;
 
@@ -34,10 +36,11 @@ const New = ({ inputs, title }) => {
         img: url,
       };
 
-      await axios.post("/auth/register", newUser);
+      await axios.post("http://localhost:8005/api/auth/register", newUser);
     } catch (err) {
       console.log(err);
     }
+    navigate("/users")
   };
 
   console.log(info);
@@ -45,9 +48,9 @@ const New = ({ inputs, title }) => {
     <div className="new">
       <Sidebar />
       <div className="newContainer">
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="top">
-          <h1>{title}</h1>
+          {/* <h1>{title}</h1> */}
         </div>
         <div className="bottom">
           <div className="left">
@@ -71,6 +74,7 @@ const New = ({ inputs, title }) => {
                   id="file"
                    // @ts-expect-error
                   onChange={(e) => setFile(e.target.files[0])}
+                 
                   style={{ display: "none" }}
                 />
               </div>

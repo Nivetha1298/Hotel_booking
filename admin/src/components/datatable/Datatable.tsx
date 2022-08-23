@@ -1,7 +1,4 @@
-
-
 import React from 'react'
-
 import "./datatable.css"
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns } from "../../datatablesource";
@@ -9,12 +6,15 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
+import { listenerCount } from 'process';
 
 const Datatable = ({columns}) => {
+  // SAME PATH 
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  const [list, setList] = useState([]);
-  const { data, loading, error } = useFetch(`/${path}`);
+  // TO BRING DATA TO LIST FOR DELETING
+  const [list, setList] = useState<any[]>([]);
+  const { data, loading, error } = useFetch(`http://localhost:8005/api/${path}`);
 
   useEffect(() => {
     setList(data);
@@ -22,8 +22,8 @@ const Datatable = ({columns}) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/${path}/${id}`);
-      setList(list&&list.filter((item) => item._id !== id));
+      await axios.delete(`http://localhost:8005/api/${path}/${id}`);
+      setList(list.filter((item) => item._id !== id));
     } catch (err) {}
   };
 
@@ -56,16 +56,19 @@ const Datatable = ({columns}) => {
         <Link to={`/${path}/new`} className="link">
           Add New
         </Link>
-      </div>
-      <DataGrid
+      </div>{
+        list&& <DataGrid
         className="datagrid"
         rows={list}
         columns={columns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
-        checkboxSelection
+        // checkboxSelection
         getRowId={(row) => row._id}
       />
+
+}
+      
     </div>
   );
 };
