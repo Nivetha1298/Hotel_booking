@@ -128,38 +128,45 @@ var updateRoomAvailability = function (req, res, next) { return __awaiter(void 0
 exports.updateRoomAvailability = updateRoomAvailability;
 // DELETING A ROOM
 var deleteRoom = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var hotelId, err_5, err_6;
+    var roomId, hotel, hotelId, err_5, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                hotelId = req.params.hotelid;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 7, , 8]);
-                return [4 /*yield*/, Room_1["default"].findByIdAndDelete(req.params.id)];
-            case 2:
-                _a.sent();
-                _a.label = 3;
-            case 3:
-                _a.trys.push([3, 5, , 6]);
-                return [4 /*yield*/, Hotel_1["default"].findByIdAndUpdate(hotelId, {
-                        $pull: { rooms: req.params.id }
+                roomId = req.params.id;
+                return [4 /*yield*/, Hotel_1["default"].find({
+                        rooms: { $in: roomId }
                     })];
-            case 4:
+            case 1:
+                hotel = _a.sent();
+                console.log(hotel);
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 8, , 9]);
+                hotelId = hotel[0]._id;
+                return [4 /*yield*/, Room_1["default"].findByIdAndDelete(roomId)];
+            case 3:
                 _a.sent();
-                return [3 /*break*/, 6];
+                _a.label = 4;
+            case 4:
+                _a.trys.push([4, 6, , 7]);
+                return [4 /*yield*/, Hotel_1["default"].findByIdAndUpdate(hotelId, {
+                        $pull: { rooms: roomId }
+                    })];
             case 5:
+                _a.sent();
+                return [3 /*break*/, 7];
+            case 6:
                 err_5 = _a.sent();
                 next(err_5);
-                return [3 /*break*/, 6];
-            case 6:
-                res.status(200).json("Room has been deleted.");
-                return [3 /*break*/, 8];
+                return [3 /*break*/, 7];
             case 7:
+                res.status(200).json("Room has been deleted.");
+                return [3 /*break*/, 9];
+            case 8:
                 err_6 = _a.sent();
                 next(err_6);
-                return [3 /*break*/, 8];
-            case 8: return [2 /*return*/];
+                return [3 /*break*/, 9];
+            case 9: return [2 /*return*/];
         }
     });
 }); };

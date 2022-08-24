@@ -53,36 +53,56 @@ var verifyToken = function (req, res, next) {
     });
 };
 exports.verifyToken = verifyToken;
-var verifyUser = function (req, res, next) {
-    (0, exports.verifyToken)(req, res, function () {
-        if (req.user.id === req.params.id || req.user.isAdmin) {
-            next();
-        }
-        else {
-            return next((0, error_1.createError)(403, "You are not authorized!"));
-        }
+var verifyUser = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        // console.log("isAdmin",req.headers.isadmin)
+        (0, exports.verifyToken)(req, res, function () { return __awaiter(void 0, void 0, void 0, function () {
+            var isadmin, _id, userdata;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log(req.params.id);
+                        isadmin = req.headers.isadmin;
+                        _id = JSON.parse(isadmin)._id;
+                        console.log("admin", isadmin);
+                        return [4 /*yield*/, User_1["default"].findById(_id)];
+                    case 1: return [4 /*yield*/, (_a.sent())];
+                    case 2:
+                        userdata = _a.sent();
+                        console.log("userdata", userdata);
+                        if (userdata._id === req.params.id || userdata.isAdmin) {
+                            next();
+                        }
+                        else {
+                            return [2 /*return*/, res.json("You are not authorized!")];
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        return [2 /*return*/];
     });
-};
+}); };
 exports.verifyUser = verifyUser;
 var verifyAdmin = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         (0, exports.verifyToken)(req, res, function () { return __awaiter(void 0, void 0, void 0, function () {
-            var isadmin, _id, isAdmin;
+            var isadmin, _id, adminData;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        isadmin = req.headers.user;
+                        isadmin = req.headers.isadmin;
                         _id = JSON.parse(isadmin)._id;
                         console.log(isadmin);
                         return [4 /*yield*/, User_1["default"].findById(_id)];
                     case 1: return [4 /*yield*/, (_a.sent()).isAdmin];
                     case 2:
-                        isAdmin = _a.sent();
-                        if (isAdmin) {
-                            next();
+                        adminData = _a.sent();
+                        if (adminData) {
+                            return [2 /*return*/, next()];
                         }
                         else {
-                            return [2 /*return*/, next((0, error_1.createError)(403, "You are not authorized!"))];
+                            return [2 /*return*/, res.json("You are not authorized!")];
                         }
                         return [2 /*return*/];
                 }

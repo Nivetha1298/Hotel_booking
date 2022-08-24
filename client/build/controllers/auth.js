@@ -121,10 +121,9 @@ var login = function (req, res, next) { return __awaiter(void 0, void 0, void 0,
                 }, process.env.JWT_KEY, {
                     expiresIn: "2d"
                 });
+                console.log(token);
                 _a = user._doc, password = _a.password, isAdmin = _a.isAdmin, otherDetails = __rest(_a, ["password", "isAdmin"]);
-                res.cookie("access_token", token, {
-                    httpOnly: true
-                }).status(200).json({ details: __assign({}, otherDetails), isAdmin: isAdmin });
+                res.status(200).json({ token: token, details: __assign({}, otherDetails), isAdmin: isAdmin });
                 return [3 /*break*/, 4];
             case 3:
                 err_2 = _b.sent();

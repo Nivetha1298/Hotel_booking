@@ -61,13 +61,23 @@ export const updateRoomAvailability = async (req, res, next) => {
     }
   };
 // DELETING A ROOM
-export  const deleteRoom = async (req:Request,res:Response,next)=>{
-    const hotelId = req.params.hotelid;
+export  const deleteRoom = async (req,res,next)=>{
+  const roomId = req.params.id;
+const  hotel=await Hotel.find({
+  rooms: {$in:roomId}
+}
+
+
+  
+)
+console.log(hotel)
+   
     try {
-      await Room.findByIdAndDelete(req.params.id);
+      const hotelId = hotel[0]._id;
+      await Room.findByIdAndDelete(roomId);
       try {
         await Hotel.findByIdAndUpdate(hotelId, {
-          $pull: { rooms: req.params.id },
+          $pull: { rooms: roomId },
         });
       } catch (err) {
         next(err);

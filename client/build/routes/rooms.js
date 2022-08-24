@@ -12,7 +12,7 @@ router.put("/:id", verifyToken_1.verifyAdmin, room_1.updateRoom);
 //  Updating Availability room , unavailableid
 router.put("/availability/:id", room_1.updateRoomAvailability);
 //  Delete 
-router["delete"]("/:id/:hotelid", verifyToken_1.verifyAdmin, room_1.deleteRoom);
+router["delete"]("/:id", verifyToken_1.verifyAdmin, room_1.deleteRoom);
 // get by id
 router.get("/:id", room_1.getroombyid);
 // get all  
