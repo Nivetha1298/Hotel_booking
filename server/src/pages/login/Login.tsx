@@ -25,6 +25,9 @@ const navigate = useNavigate()
                 try{
 const  res = await axios.post("http://localhost:8005/api/auth/login" ,credentials)
 dispatch({type:"LOGIN_SUCCESS" ,  payload:res.data.details});
+   console.log( "Hello" ,res)
+   localStorage.setItem("isAdmin" ,res.data.isAdmin)
+   localStorage.setItem("acess_token" ,res.data.token)
 navigate("/")
 
                 }
