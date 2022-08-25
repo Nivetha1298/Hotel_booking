@@ -7,7 +7,7 @@ import { verifyAdmin } from "../utils/verifyToken";
 // ROUTING FOR HOTELS
 const router =express.Router();
 // create
- router.post("/"  ,verifyAdmin, createHotel ) 
+ router.post("/"  , createHotel ) 
    
 
   

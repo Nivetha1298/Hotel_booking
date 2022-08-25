@@ -10,11 +10,12 @@ import { Request, Response } from "express";
 export const  createRoom  = async(req:Request   , res:Response   ,next)=>{
     const hotelId = req.params.hotelid;
     const newRoom = new Room(req.body);
-
+    console.log(newRoom);
 
     try{
         const  savedRoom = await newRoom.save();
-
+    
+      
         try{
             await Hotel.findByIdAndUpdate(hotelId ,  {
                 $push :{rooms:savedRoom._id},

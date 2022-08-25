@@ -7,7 +7,7 @@ import { verifyAdmin } from "../utils/verifyToken";
 // ROUTING FOR ROOMS
 const router =express.Router();
 // create
- router.post("/:hotelid" , verifyAdmin,createRoom ) 
+ router.post("/:hotelid" ,createRoom ) 
    
 
   
