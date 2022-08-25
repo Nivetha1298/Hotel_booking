@@ -30,7 +30,7 @@ const New = ({ inputs, title }) => {
       )
 
       const { url } = uploadRes.data;
-
+console.log(url)
       const newUser = {
         ...info,
         img: url,
@@ -80,9 +80,10 @@ const New = ({ inputs, title }) => {
               </div>
 
               {inputs.map((input) => (
-                <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
+                <div className="formInput"  key={input.id}>
+                  
                   <input
+                  
                     onChange={handleChange}
                     type={input.type}
                     placeholder={input.placeholder}

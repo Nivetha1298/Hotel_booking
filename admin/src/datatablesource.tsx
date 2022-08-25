@@ -38,7 +38,18 @@ export const userColumns = [
     {
       field: "name",
       headerName: "Name",
-      width: 150,
+      width: 230,
+      // to use React hooks inside your renderer, you should wrap them inside a component. 
+      renderCell: (params) => {
+        return (
+       
+          <div className="cellWithImg">
+           { console.log(params,"hf")}
+          <img className="cellImg" src={params.row.photos[0] || "https://i.ibb.co/MBtjqXQ/no-avatar.gif"} alt="avatar" />
+          {params.row.name}
+        </div>
+        );
+      },
     },
     {
       field: "type",

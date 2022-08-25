@@ -6,13 +6,14 @@ import { useState } from "react";
 import { roomInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const NewRoom = () => {
   const [info, setInfo] = useState({});
   const [hotelId, setHotelId] = useState(undefined);
   const [rooms, setRooms] = useState([]);
-
-  const { data, loading, error } = useFetch("/hotels");
+const navigate=useNavigate();
+  const { data, loading, error } = useFetch("http://localhost:8005/api/hotels");
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -23,7 +24,8 @@ const NewRoom = () => {
     // @ts-expect-error
     const roomNumbers = rooms.split(",").map((room) => ({ number: room }));
     try {
-      await axios.post(`/rooms/${hotelId}`, { ...info, roomNumbers });
+      await axios.post(`http://localhost:8005/api/rooms/${hotelId}`, { ...info, roomNumbers });
+         navigate("/rooms")
     } catch (err) {
       console.log(err);
     }
@@ -34,7 +36,7 @@ const NewRoom = () => {
     <div className="new">
       <Sidebar />
       <div className="newContainer">
-        <Navbar />
+      
         <div className="top">
           <h1>Add New Room</h1>
         </div>
@@ -43,7 +45,7 @@ const NewRoom = () => {
             <form>
               {roomInputs.map((input) => (
                 <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
+                 
                   <input
                     id={input.id}
                     type={input.type}

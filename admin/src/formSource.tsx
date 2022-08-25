@@ -1,137 +1,139 @@
 export const userInputs = [
   {
     id: "username",
-    label: "Username",
+   
     type: "text",
+    placeholder: "Username",
+    
   },
   {
     id: "email",
-    label: "Email",
+    placeholder: "Email",
     type: "email",
   },
   {
     id: "phone",
-    label: "Phone",
+    placeholder: "Phone",
     type: "text",
   },
   {
     id: "password",
-    label: "Password",
+    placeholder: "Password",
     type: "password",
   },
  
   {
     id: "city",
-    label: "City",
+     placeholder: "City",
     type: "text",
   },
 ];
 
-export const productInputs = [
-  {
-    id: 1,
-    label: "Title",
-    type: "text",
-    placeholder: "Apple Macbook Pro",
-  },
-  {
-    id: 2,
-    label: "Description",
-    type: "text",
-    placeholder: "Description",
-  },
-  {
-    id: 3,
-    label: "Category",
-    type: "text",
-    placeholder: "Computers",
-  },
-  {
-    id: 4,
-    label: "Price",
-    type: "text",
-    placeholder: "100",
-  },
-  {
-    id: 5,
-    label: "Stock",
-    type: "text",
-    placeholder: "in stock",
-  },
-];
+// export const productInputs = [
+//   {
+//     id: 1,
+//     placeholder: "Title",
+//     type: "text",
+   
+//   },
+//   {
+//     id: 2,
+//     label: "Description",
+//     type: "text",
+//     placeholder: "Description",
+//   },
+//   {
+//     id: 3,
+//     label: "Category",
+//     type: "text",
+//     placeholder: "Computers",
+//   },
+//   {
+//     id: 4,
+//     label: "Price",
+//     type: "text",
+//     placeholder: "100",
+//   },
+//   {
+//     id: 5,
+//     label: "Stock",
+//     type: "text",
+//     placeholder: "in stock",
+//   },
+// ];
 
 export const hotelInputs = [
   {
     id: "name",
-    label: "Name",
+    placeholder: "Name",
     type: "text",
-    placeholder: "My Hotel",
+    
   },
   {
     id: "type",
-    label: "Type",
+    placeholder: "Type",
     type: "text",
-    placeholder: "hotel",
+    
   },
   {
     id: "city",
-    label: "City",
+    placeholder: "City",
     type: "text",
-    placeholder: "New York",
+    
   },
   {
     id: "address",
-    label: "Address",
+    placeholder: "Address",
     type: "text",
   },
   {
     id: "distance",
-    label: "Distance from City Center",
+    placeholder: "Distance from City Center",
     type: "text",
   },
   {
     id: "title",
-    label: "Title",
+    placeholder: "Title",
     type: "text",
-    placeholder: "The best Hotel",
+    
   },
   {
     id: "desc",
-    label: "Description",
+    placeholder: "Description",
     type: "text",
-    placeholder: "description",
+    
   },
   {
     id: "cheapestPrice",
-    label: "Price",
+    placeholder: "Price",
     type: "text",
-    placeholder: "100",
+   
   },
 ];
 
 export const roomInputs = [
   {
     id: "title",
-    label: "Title",
+    placeholder: "Title",
     type: "text",
-    placeholder: "2 bed room",
+    
   },
   {
     id: "desc",
-    label: "Description",
+    placeholder: "Description",
     type: "text",
-    placeholder: "King size bed, 1 bathroom",
+    
   },
   {
     id: "price",
-    label: "Price",
+    placeholder: "Price",
     type: "number",
-    placeholder: "100",
+   
   },
   {
     id: "maxPeople",
-    label: "Max People",
+    placeholder: "Max People",
     type: "number",
-    placeholder: "2",
+    
   },
 ];

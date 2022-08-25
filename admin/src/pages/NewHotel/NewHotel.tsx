@@ -6,13 +6,14 @@ import { useState } from "react";
 import { hotelInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const NewHotel = () => {
   const [files, setFiles] = useState();
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
-
-  const { data, loading, error } = useFetch("/rooms");
+const navigate=useNavigate();
+  const { data, loading, error } = useFetch("http://localhost:8005/api//rooms");
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -26,8 +27,10 @@ const NewHotel = () => {
     );
     setRooms(value);
   };
-  
-  console.log(files)
+  console.log(info);
+  console.log(rooms);
+  console.log(files);
+
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -37,9 +40,9 @@ const NewHotel = () => {
           const data = new FormData();
            // @ts-expect-error
           data.append("file", file);
-          data.append("upload_preset", "upload");
+          data.append("upload_preset", "qqwgak9b");
           const uploadRes = await axios.post(
-            "https://api.cloudinary.com/v1_1/lamadev/image/upload",
+            "https://api.cloudinary.com/v1_1/dyhxtfvnd/image/upload",
             data
           );
 
@@ -54,16 +57,17 @@ const NewHotel = () => {
         photos: list,
       };
 
-      await axios.post("/hotels", newhotel);
+      await axios.post("http://localhost:8005/api/hotels", newhotel);
     } catch (err) {console.log(err)}
+    navigate("/hotels")
   };
   return (
     <div className="new">
       <Sidebar />
       <div className="newContainer">
-        <Navbar />
+      
         <div className="top">
-          <h1>Add New Product</h1>
+          <h1>Add New Hotel</h1>
         </div>
         <div className="bottom">
           <div className="left">
@@ -94,7 +98,7 @@ const NewHotel = () => {
 
               {hotelInputs.map((input) => (
                 <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
+                
                   <input
                     id={input.id}
                     onChange={handleChange}
@@ -112,7 +116,7 @@ const NewHotel = () => {
                   <option value={true}>Yes</option>
                 </select>
               </div>
-              <div className="selectRooms">
+              {/* <div className="selectRooms">
                 <label>Rooms</label>
                 <select id="rooms" multiple onChange={handleSelect}>
                   {loading
@@ -124,7 +128,23 @@ const NewHotel = () => {
                         </option>
                       ))}
                 </select>
-              </div>
+              </div> */}
+
+
+{/* 
+<div className="selectRooms">
+                <label>Rooms</label>
+                <select id="rooms" multiple onChange={handleSelect}>
+                  {loading
+                    ? "loading"
+                    : data &&
+                      data.map((room) => (
+                        <option key={room._id} value={room._id}>
+                          {room.title}
+                        </option>
+                      ))}
+                </select>
+              </div> */}
               <button onClick={handleClick}>Send</button>
             </form>
           </div>
