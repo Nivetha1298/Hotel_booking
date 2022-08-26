@@ -7,15 +7,15 @@ const router =express.Router();
 
 // ROUTING FOR USERS
  //  update
- router.put("/:id"  ,  verifyUser ,updateUser)
+ router.put("/:id"   ,updateUser)
 
 //  Delete 
-router.delete("/:id" ,   verifyUser ,deleteUser)
+router.delete("/:id" ,   deleteUser)
 // get by id
-router.get("/:id" ,    verifyUser ,getUserbyid)
+router.get("/:id" ,    getUserbyid)
 
 // get all  
-router.get("/"   , verifyAdmin ,getUsers);
+router.get("/"   ,getUsers);
  
 
 

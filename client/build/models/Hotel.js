@@ -4,31 +4,28 @@ var mongoose_1 = require("mongoose");
 // DATABASE FOR HOTEL
 var HotelSchema = new mongoose_1["default"].Schema({
     name: {
-        type: String,
-        required: true
+        type: String
     },
     type: {
-        type: String,
-        required: true
+        type: String
     },
     city: {
-        type: String,
-        required: true
+        type: String
     },
     address: {
-        type: String,
-        required: true
+        type: String
+    },
+    title: {
+        type: String
     },
     distance: {
-        type: String,
-        required: true
+        type: String
     },
     photos: {
         type: [String]
     },
     desc: {
-        type: String,
-        required: true
+        type: String
     },
     rating: {
         type: Number,
@@ -39,8 +36,7 @@ var HotelSchema = new mongoose_1["default"].Schema({
         type: [String]
     },
     cheapestPrice: {
-        type: Number,
-        required: true
+        type: Number
     },
     featured: {
         type: Boolean,

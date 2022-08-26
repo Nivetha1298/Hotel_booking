@@ -48,6 +48,7 @@ var createRoom = function (req, res, next) { return __awaiter(void 0, void 0, vo
             case 0:
                 hotelId = req.params.hotelid;
                 newRoom = new Room_1["default"](req.body);
+                console.log(newRoom);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 7, , 8]);

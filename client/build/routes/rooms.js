@@ -6,7 +6,7 @@ var verifyToken_1 = require("../utils/verifyToken");
 // ROUTING FOR ROOMS
 var router = express.Router();
 // create
-router.post("/:hotelid", verifyToken_1.verifyAdmin, room_1.createRoom);
+router.post("/:hotelid", room_1.createRoom);
 //  update
 router.put("/:id", verifyToken_1.verifyAdmin, room_1.updateRoom);
 //  Updating Availability room , unavailableid

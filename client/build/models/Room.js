@@ -4,20 +4,16 @@ var mongoose_1 = require("mongoose");
 // DATABASE FOR ROOMS
 var RoomSchema = new mongoose_1["default"].Schema({
     title: {
-        type: String,
-        required: true
+        type: String
     },
     price: {
-        type: Number,
-        required: true
+        type: Number
     },
     maxPeople: {
-        type: Number,
-        required: true
+        type: Number
     },
     desc: {
-        type: String,
-        required: true
+        type: String
     },
     roomNumbers: [{ number: Number, unavailableDates: { type: [Date] } }]
 }, { timestamps: true });
