@@ -2,11 +2,12 @@ import React from 'react'
 import "./datatable.css"
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns } from "../../datatablesource";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { listenerCount } from 'process';
+import { Button } from '@mui/material';
 
 const Datatable = ({columns}) => {
   // SAME PATH 
@@ -19,6 +20,11 @@ const Datatable = ({columns}) => {
   useEffect(() => {
     setList(data);
   }, [data]);
+   
+  const navigate = useNavigate()
+  const editdata=(id:any)=>{
+     navigate(`/${path}/useredit`,{state:{data:id}})
+  }
 
   const handleDelete = async (id) => {
     
@@ -32,18 +38,18 @@ const Datatable = ({columns}) => {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 300,
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/useredit" style={{ textDecoration: "none" }}>
+            {/* <Link to={`/users/useredit`} style={{ textDecoration: "none" }}>
               <div className="viewButton">Edit</div>
-            </Link>
+            </Link> */}
+            <Button className='deleteButton' onClick={()=>editdata(params.row._id)}>Edit</Button>
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row._id)}
-            >
-              Delete
+            > Delete
             </div>
           </div>
         );

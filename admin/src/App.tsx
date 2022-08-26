@@ -4,7 +4,7 @@ import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import {  userInputs } from "./formSource";
+import {  hotelInputs, userInputs } from "./formSource";
 
 import { useContext } from "react";
 
@@ -12,6 +12,7 @@ import { AuthContext } from "./context/AuthContext";
 import { hotelColumns, roomColumns, userColumns } from "./datatablesource";
 import NewHotel from "./pages/NewHotel/NewHotel";
 import NewRoom from "./pages/newRoom/NewRoom";
+import Edithotel from "./pages/edithotel/Edithotel";
 
 function App() {
 ;
@@ -53,7 +54,7 @@ function App() {
                 path=":userId"
                 element={
                   <ProtectedRoute>
-                    <Single />
+                    <Single inputs={userInputs} title="Edit User" />
                   </ProtectedRoute>
                 }
               />
@@ -76,10 +77,10 @@ function App() {
                 }
               />
               <Route
-                path=":productId"
+                path=":hotelId"
                 element={
                   <ProtectedRoute>
-                    <Single />
+                    <Edithotel/>
                   </ProtectedRoute>
                 }
               />
@@ -105,7 +106,7 @@ function App() {
                 path=":productId"
                 element={
                   <ProtectedRoute>
-                    <Single />
+                  
                   </ProtectedRoute>
                 }
               />

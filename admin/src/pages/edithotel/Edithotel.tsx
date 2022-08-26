@@ -1,32 +1,53 @@
-import "./single.css";
+import "./edithotel.css"
+
 import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
+
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
-import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { hotelInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
+import axios from "axios";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
-const Single = ({ inputs, title }) => {
-  const [file, setFile] = useState();
+const NewHotel = () => {
+  const [files, setFiles] = useState();
   const [info, setInfo] = useState({});
+  const [rooms, setRooms] = useState([]);
+
   const navigate=useNavigate();
   const location =useLocation();
   const path = location.pathname.split("/")[1];
   const currentId:any = location.state
   console.log("id",currentId.data)
   const { data, loading, error } = useFetch(`http://localhost:8005/api/${path}/${currentId.data}`);
-console.log(data)
+  console.log(data)
+
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  const handleSelect = (e) => {
+    const value = Array.from(
+      e.target.selectedOptions,
+       // @ts-expect-error
+      (option) => option.value
+    );
+    setRooms(value);
+  };
+  console.log(info);
+  console.log(rooms);
+  console.log(files);
+
+
   const handleClick = async (e) => {
     e.preventDefault();
    console.log("hello");
+  console.log(currentId.data);
+   console.log("path" ,path);
    const data  = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "qqwgak9b");
+    data.append("file", files);
+    data.append("upload_preset", "kfpqlr7l");
+
     try {
       const uploadRes = await axios.post(
         "https://api.cloudinary.com/v1_1/kfpqlr7l/image/upload",
@@ -41,22 +62,20 @@ console.log(url)
       };
 
       await axios.put(`http://localhost:8005/api/${path}/${currentId.data}`, newUser);
-   navigate("/users");
+   navigate("/hotels");
 
 
     } catch (err) {
       console.log(err);
     }
    console.log(info);
-   console.log(file);
+   console.log(files);
   };
-
- 
   return (
     <div className="new">
       <Sidebar />
       <div className="newContainer">
-        {/* <Navbar /> */}
+      
         <div className="top">
           <h1>{data?._id}</h1>
         </div>
@@ -64,9 +83,9 @@ console.log(url)
           <div className="left">
             <img
               src={
-                file
-                  ? URL.createObjectURL(file)
-                  : data?.img
+                files
+                  ? URL.createObjectURL(files[0])
+                  : data?.photos&&data?.photos[0]
               }
               alt=""
             />
@@ -80,13 +99,14 @@ console.log(url)
                 <input
                   type="file"
                   id="file"
+                  multiple
                    // @ts-expect-error
-                  onChange={(e) => setFile(e.target.files[0])}
+                  onChange={(e) => setFiles(e.target.files)}
                   style={{ display: "none" }}
                 />
               </div>
 
-              {data && inputs.map((input) => (
+              {data && hotelInputs.map((input) => (
                 <div className="formInput"  key={input.id}>
                   
                   <input
@@ -99,6 +119,44 @@ console.log(url)
                   />
                 </div>
               ))}
+              <div className="formInput">
+                <label>Featured</label>
+                <select id="featured" onChange={handleChange}>
+              {/*   @ts-expect-error */}
+                  <option value={false}>No</option>
+                  {/*  @ts-expect-error */}
+                  <option value={true}>Yes</option>
+                </select>
+              </div>
+              {/* <div className="selectRooms">
+                <label>Rooms</label>
+                <select id="rooms" multiple onChange={handleSelect}>
+                  {loading
+                    ? "loading"
+                    : data &&
+                      data.map((room) => (
+                        <option key={room._id} value={room._id}>
+                          {room.title}
+                        </option>
+                      ))}
+                </select>
+              </div> */}
+
+
+{/* 
+<div className="selectRooms">
+                <label>Rooms</label>
+                <select id="rooms" multiple onChange={handleSelect}>
+                  {loading
+                    ? "loading"
+                    : data &&
+                      data.map((room) => (
+                        <option key={room._id} value={room._id}>
+                          {room.title}
+                        </option>
+                      ))}
+                </select>
+              </div> */}
               <button onClick={handleClick}>Update</button>
             </form>
           </div>
@@ -108,4 +166,4 @@ console.log(url)
   );
 };
 
-export default Single;
+export default NewHotel;

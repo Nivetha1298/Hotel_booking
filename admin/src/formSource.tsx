@@ -1,66 +1,41 @@
+
 export const userInputs = [
   {
     id: "username",
-   
+    label: "User Name",
     type: "text",
-    placeholder: "Username",
+    placeholder: "user name"
     
   },
   {
     id: "email",
+    label: "Email" ,
     placeholder: "Email",
     type: "email",
   },
   {
     id: "phone",
+    label: "Phone"       ,
     placeholder: "Phone",
     type: "text",
   },
   {
     id: "password",
+    label: "Password",
     placeholder: "Password",
     type: "password",
   },
  
   {
     id: "city",
+    label: "City",
      placeholder: "City",
     type: "text",
   },
 ];
 
-// export const productInputs = [
-//   {
-//     id: 1,
-//     placeholder: "Title",
-//     type: "text",
-   
-//   },
-//   {
-//     id: 2,
-//     label: "Description",
-//     type: "text",
-//     placeholder: "Description",
-//   },
-//   {
-//     id: 3,
-//     label: "Category",
-//     type: "text",
-//     placeholder: "Computers",
-//   },
-//   {
-//     id: 4,
-//     label: "Price",
-//     type: "text",
-//     placeholder: "100",
-//   },
-//   {
-//     id: 5,
-//     label: "Stock",
-//     type: "text",
-//     placeholder: "in stock",
-//   },
-// ];
+
+
 
 export const hotelInputs = [
   {

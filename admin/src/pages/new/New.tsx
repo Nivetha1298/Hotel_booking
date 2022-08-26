@@ -81,12 +81,14 @@ console.log(url)
 
               {inputs.map((input) => (
                 <div className="formInput"  key={input.id}>
-                  
+                <label>{input.label}</label>
                   <input
-                  
+                 
                     onChange={handleChange}
                     type={input.type}
+                    
                     placeholder={input.placeholder}
+
                     id={input.id}
                   />
                 </div>
