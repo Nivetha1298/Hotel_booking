@@ -18,6 +18,8 @@ const Hotel = () => {
 const location:any = useLocation()
 console.log(location);
 
+
+
 const id=location.pathname.split("/")[2]
   const [slideNumber ,setSlideNumber]=useState (0);
   const [openModel , setOpenModel] =useState(false);
@@ -120,7 +122,7 @@ const days=(dayDifference(dates[0]?.endDate , dates[0]?.startDate))
               <h1>Perfect for a {days}-night stay!</h1>
               <span>
                 Located in the real heart of chennai, this property has an
-                excellent location score of 9.8!
+                excellent location 
               </span>
               <h2>
                 <b>&#8377;{days * data?.cheapestPrice * options.room}</b> ({days} nights)

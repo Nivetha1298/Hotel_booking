@@ -72,10 +72,9 @@ const Header = (props:any) => {
 {
 props.type !=="list" &&
 
-<><h1 className='headerTitle'> A lifetime of  discounts? It's Genius. </h1>
+<><h1 className='headerTitle'> Living the hotel lifestyle is the best! </h1>
 <p className='headerDesc'>
-    Get rewarded for your travels - unlock instant savings of 10% or more
-    with a free Hotelbooking account 
+When you get into a hotel room, you lock the door, and you know there is a secrecy, there is a luxury, there is fantasy. There is comfort. There is reassurance.
 </p>
 {!user && <button className="headerBtn">Sign in / Register</button>}
 <div  className='headerSearch'>

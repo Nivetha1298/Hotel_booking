@@ -21,6 +21,8 @@ const Home = () => {
        
        
        
+
+       
         <h1 className="homeTitle">Top Places</h1>
         <FeaturedProperties/>
         <MailList/>

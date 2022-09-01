@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import useFetch from '../../hooks/useFetch'
 import "./featuredProperties.css"
 
@@ -13,11 +14,12 @@ const FeaturedProperties = () => {
         <>
           { data&& data.map((item:any) => (
             <div className="fpItem" key={item._id}>
-              <img
+             <Link to={`hotels/${item._id}`}> <img
                 src={item.photos[0]}
                 alt=""
                 className="fpImg"
-              />
+              /></Link>
+              
               <span className="fpName">{item.name}</span>
               <span className="fpCity">{item.city}</span>
               <span className="fpPrice">Starting from &#8377;{item.cheapestPrice}</span>
