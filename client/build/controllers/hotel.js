@@ -93,6 +93,7 @@ var updateHotel = function (req, res, next) { return __awaiter(void 0, void 0, v
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
+                console.log(req.body);
                 return [4 /*yield*/, Hotel_1["default"].findByIdAndUpdate(req.params.id, { $set: req.body }, { "new": true })];
             case 1:
                 updateHotel_1 = _a.sent();
@@ -160,7 +161,7 @@ var gethotel = function (req, res, next) { return __awaiter(void 0, void 0, void
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, Hotel_1["default"].find(__assign(__assign({}, others), { cheapestPrice: { $gt: +min | 1, $lt: max || 999 } })).limit(+req.query.limit)];
+                return [4 /*yield*/, Hotel_1["default"].find(__assign({}, others))];
             case 2:
                 hotels = _b.sent();
                 res.status(200).json(hotels);

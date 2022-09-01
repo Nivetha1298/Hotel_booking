@@ -5,12 +5,12 @@ var mongoose_1 = require("mongoose");
 var UserSchema = new mongoose_1["default"].Schema({
     username: {
         type: String,
-        required: true,
+        // required: true,
         unique: true
     },
     email: {
         type: String,
-        required: true,
+        // required: true,
         unique: true
     },
     img: {
@@ -23,8 +23,7 @@ var UserSchema = new mongoose_1["default"].Schema({
         type: String
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     isAdmin: {
         type: Boolean,

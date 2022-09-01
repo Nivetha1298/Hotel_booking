@@ -23,6 +23,7 @@ export  const createHotel = async (req:Request,res:Response,next)=>{
 // Update a hotel
 export  const updateHotel = async (req:Request,res:Response,next)=>{
     try{
+        console.log(req.body)
         const updateHotel = await Hotel.findByIdAndUpdate(req.params.id  ,{$set:req.body} , {new:true})
         res.status(200).json(updateHotel)
     
@@ -36,8 +37,14 @@ export  const updateHotel = async (req:Request,res:Response,next)=>{
 // delete a hotel
 export  const deleteHotel = async (req:Request,res:Response,next)=>{
     try{
-        await Hotel.findByIdAndDelete(req.params.id);
-        res.status(200).json("Hotel has been deleted");
+        const currentHotel = await Hotel.findById(req.params.id)
+        console.log("del",currentHotel)
+        currentHotel.rooms.forEach(async(e) =>{
+            await Room.findByIdAndDelete(e)
+            // console.log("rooms",e)
+        })
+         await Hotel.findByIdAndDelete(req.params.id);
+        return  res.status(200).json("Hotel has been deleted");
  }
  catch(err){
 
@@ -66,8 +73,8 @@ export  const gethotel = async (req:Request,res:Response,next)=>{
     try {
       const hotels = await Hotel.find({
         ...others,
-        cheapestPrice: { $gt: +min | 1, $lt: max || 999 },
-      }).limit(+req.query.limit);
+       
+      })
       res.status(200).json(hotels);
     } catch (err) {
       next(err);

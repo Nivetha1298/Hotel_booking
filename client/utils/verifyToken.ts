@@ -37,16 +37,17 @@ export const verifyToken = (req, res, next) => {
   export const verifyAdmin = async(req, res, next) => {
   
     verifyToken(req, res, async () => {
-      const isadmin = req.headers.isadmin; 
+      console.log(req.params.id)
+      const isadmin = req.headers.isadmin;
       const _id = JSON.parse(isadmin)._id
-      console.log(isadmin);
-
-      const adminData=  await (await User.findById(_id)).isAdmin
+      console.log("admin",isadmin);
     
-      if (adminData) {
-        return next();
+      const userdata= await (await User.findById(_id))
+      console.log("userdata" ,userdata);
+   if (userdata._id === req.params.id || userdata.isAdmin) {
+        next();
       } else {
         return res.json("You are not authorized!");
-       }
+      }
       })
     }

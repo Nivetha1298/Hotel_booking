@@ -23,7 +23,7 @@ export const  createRoom  = async(req:Request   , res:Response   ,next)=>{
             } );
                    console.log("hiiiiiiiiiiiii")
         }catch(err){
-            next(err);
+            return next(err)
         }
         res.status(200).json(savedRoom);
     }   catch(err){
@@ -74,7 +74,8 @@ const  hotel=await Hotel.find({
 console.log(hotel)
    
     try {
-      const hotelId = hotel[0]._id;
+      if(hotel.length > 0){
+        const hotelId = hotel[0]._id;
       await Room.findByIdAndDelete(roomId);
       try {
         await Hotel.findByIdAndUpdate(hotelId, {
@@ -83,7 +84,11 @@ console.log(hotel)
       } catch (err) {
         next(err);
       }
-      res.status(200).json("Room has been deleted.");
+      return res.status(200).json("Room has been deleted.");
+      }else{
+        await Room.findByIdAndDelete(roomId);
+        return res.status(200).json("Room has been deleted.");
+      }   
     } catch (err) {
       next(err);
     }

@@ -87,19 +87,21 @@ exports.verifyUser = verifyUser;
 var verifyAdmin = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         (0, exports.verifyToken)(req, res, function () { return __awaiter(void 0, void 0, void 0, function () {
-            var isadmin, _id, adminData;
+            var isadmin, _id, userdata;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log(req.params.id);
                         isadmin = req.headers.isadmin;
                         _id = JSON.parse(isadmin)._id;
-                        console.log(isadmin);
+                        console.log("admin", isadmin);
                         return [4 /*yield*/, User_1["default"].findById(_id)];
-                    case 1: return [4 /*yield*/, (_a.sent()).isAdmin];
+                    case 1: return [4 /*yield*/, (_a.sent())];
                     case 2:
-                        adminData = _a.sent();
-                        if (adminData) {
-                            return [2 /*return*/, next()];
+                        userdata = _a.sent();
+                        console.log("userdata", userdata);
+                        if (userdata._id === req.params.id || userdata.isAdmin) {
+                            next();
                         }
                         else {
                             return [2 /*return*/, res.json("You are not authorized!")];

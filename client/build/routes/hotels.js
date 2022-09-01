@@ -6,7 +6,7 @@ var verifyToken_1 = require("../utils/verifyToken");
 // ROUTING FOR HOTELS
 var router = express.Router();
 // create
-router.post("/", hotel_1.createHotel);
+router.post("/", verifyToken_1.verifyAdmin, hotel_1.createHotel);
 //  update
 router.put("/:id", verifyToken_1.verifyAdmin, hotel_1.updateHotel);
 //  Delete 
