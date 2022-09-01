@@ -15,7 +15,7 @@ const Datatable = ({columns}) => {
   const path = location.pathname.split("/")[1];
   // TO BRING DATA TO LIST FOR DELETING
   const [list, setList] = useState<any[]>([]);
-  const { data, loading, error } = useFetch(`http://localhost:8005/api/${path}`);
+  const { data, loading, error } = useFetch(`http://localhost:8005/api/${path}`     );
 
   useEffect(() => {
     setList(data);

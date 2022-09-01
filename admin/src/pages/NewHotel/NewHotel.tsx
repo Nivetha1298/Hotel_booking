@@ -13,7 +13,7 @@ const NewHotel = () => {
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
 const navigate=useNavigate();
-  const { data, loading, error } = useFetch("http://localhost:8005/api//rooms");
+  const { data, loading, error } = useFetch("http://localhost:8005/api/rooms");
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -57,7 +57,7 @@ const navigate=useNavigate();
         photos: list,
       };
 
-      await axios.post("http://localhost:8005/api/hotels", newhotel);
+      await axios.post("http://localhost:8005/api/hotels", newhotel ,{headers:{isAdmin:localStorage.getItem(`user`)}}   );
     } catch (err) {console.log(err)}
     navigate("/hotels")
   };
@@ -116,7 +116,7 @@ const navigate=useNavigate();
                   <option value={true}>Yes</option>
                 </select>
               </div>
-              {/* <div className="selectRooms">
+              <div className="selectRooms">
                 <label>Rooms</label>
                 <select id="rooms" multiple onChange={handleSelect}>
                   {loading
@@ -128,23 +128,10 @@ const navigate=useNavigate();
                         </option>
                       ))}
                 </select>
-              </div> */}
+              </div>
 
 
-{/* 
-<div className="selectRooms">
-                <label>Rooms</label>
-                <select id="rooms" multiple onChange={handleSelect}>
-                  {loading
-                    ? "loading"
-                    : data &&
-                      data.map((room) => (
-                        <option key={room._id} value={room._id}>
-                          {room.title}
-                        </option>
-                      ))}
-                </select>
-              </div> */}
+
               <button onClick={handleClick}>Send</button>
             </form>
           </div>

@@ -17,6 +17,11 @@ import { useContext } from "react";
 
 const Sidebar = () => {
 
+const logout =()=>{
+  localStorage.clear();
+  window.location.href = '/';
+}
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -53,9 +58,10 @@ const Sidebar = () => {
          
          
           <li>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
+            <ExitToAppIcon    onClick={logout} className="icon" />
+            <span onClick={logout}>Logout</span>
           </li>
+          
         </ul>
       </div>
       <div className="bottom">

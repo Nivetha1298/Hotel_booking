@@ -29,8 +29,9 @@ console.log(data)
     data.append("upload_preset", "qqwgak9b");
     try {
       const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/kfpqlr7l/image/upload",
+        "https://api.cloudinary.com/v1_1/dyhxtfvnd/image/upload",
         data
+      
       )
 
       const { url } = uploadRes.data;
@@ -40,7 +41,7 @@ console.log(url)
         img: url,
       };
 
-      await axios.put(`http://localhost:8005/api/${path}/${currentId.data}`, newUser);
+      await axios.put(`http://localhost:8005/api/${path}/${currentId.data}`, newUser    , {headers:{isAdmin:localStorage.getItem(`user`)}});
    navigate("/users");
 
 

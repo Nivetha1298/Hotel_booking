@@ -3,9 +3,9 @@ import "./edithotel.css"
 import Sidebar from "../../components/sidebar/Sidebar";
 
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { hotelInputs } from "../../formSource";
-import useFetch from "../../hooks/useFetch";
+import useFetch, { api } from "../../hooks/useFetch";
 import axios from "axios";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
@@ -13,6 +13,7 @@ const NewHotel = () => {
   const [files, setFiles] = useState();
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
+  const [fetchrooms , setFetchrooms]=useState<any>([]);
 
   const navigate=useNavigate();
   const location =useLocation();
@@ -22,10 +23,64 @@ const NewHotel = () => {
   const { data, loading, error } = useFetch(`http://localhost:8005/api/${path}/${currentId.data}`);
   console.log(data)
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+    
+      try {
+        const res = await api.get("/rooms");
+        console.log(res.data)
+        setFetchrooms(res.data)
+      } catch (err) {
+      
+      }
+     
+    };
+    fetchData();
+  }, []);
+
+
+  
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+
+ 
+
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      const list = await Promise.all(
+        Object.values(files).map(async (file) => {
+          const data = new FormData();
+           // @ts-expect-error
+          data.append("file", file);
+          data.append("upload_preset", "qqwgak9b");
+          const uploadRes = await axios.post(
+            "https://api.cloudinary.com/v1_1/dyhxtfvnd/image/upload",
+            data
+          );
+
+          const { url } = uploadRes.data;
+          return url;
+        })
+      );
+
+      const newhotel = {
+        ...info,
+        rooms,
+        photos: list,
+      };
+
+      await axios.put(`http://localhost:8005/api/${path}/${currentId.data}`, newhotel  ,{headers:{isAdmin:localStorage.getItem(`user`)}} );
+    } catch (err) {console.log(err)}
+    navigate("/hotels")
+
+
+  };
+  
   const handleSelect = (e) => {
     const value = Array.from(
       e.target.selectedOptions,
@@ -33,43 +88,6 @@ const NewHotel = () => {
       (option) => option.value
     );
     setRooms(value);
-  };
-  console.log(info);
-  console.log(rooms);
-  console.log(files);
-
-
-  const handleClick = async (e) => {
-    e.preventDefault();
-   console.log("hello");
-  console.log(currentId.data);
-   console.log("path" ,path);
-   const data  = new FormData();
-    data.append("file", files);
-    data.append("upload_preset", "kfpqlr7l");
-
-    try {
-      const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/kfpqlr7l/image/upload",
-        data
-      )
-
-      const { url } = uploadRes.data;
-console.log(url)
-      const newUser = {
-        ...info,
-        img: url,
-      };
-
-      await axios.put(`http://localhost:8005/api/${path}/${currentId.data}`, newUser);
-   navigate("/hotels");
-
-
-    } catch (err) {
-      console.log(err);
-    }
-   console.log(info);
-   console.log(files);
   };
   return (
     <div className="new">
@@ -128,35 +146,23 @@ console.log(url)
                   <option value={true}>Yes</option>
                 </select>
               </div>
-              {/* <div className="selectRooms">
-                <label>Rooms</label>
-                <select id="rooms" multiple onChange={handleSelect}>
-                  {loading
-                    ? "loading"
-                    : data &&
-                      data.map((room) => (
-                        <option key={room._id} value={room._id}>
-                          {room.title}
-                        </option>
-                      ))}
-                </select>
-              </div> */}
+            
 
 
-{/* 
+
 <div className="selectRooms">
                 <label>Rooms</label>
                 <select id="rooms" multiple onChange={handleSelect}>
                   {loading
                     ? "loading"
-                    : data &&
-                      data.map((room) => (
+                    : fetchrooms &&
+                      fetchrooms?.map((room) => (
                         <option key={room._id} value={room._id}>
                           {room.title}
                         </option>
                       ))}
                 </select>
-              </div> */}
+              </div>
               <button onClick={handleClick}>Update</button>
             </form>
           </div>

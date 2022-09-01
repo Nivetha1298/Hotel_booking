@@ -44,12 +44,7 @@ export const hotelInputs = [
     type: "text",
     
   },
-  {
-    id: "type",
-    placeholder: "Type",
-    type: "text",
-    
-  },
+ 
   {
     id: "city",
     placeholder: "City",

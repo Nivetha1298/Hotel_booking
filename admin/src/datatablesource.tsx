@@ -51,11 +51,7 @@ export const userColumns = [
         );
       },
     },
-    {
-      field: "type",
-      headerName: "Type",
-      width: 100,
-    },
+  
     {
       field: "title",
       headerName: "Title",

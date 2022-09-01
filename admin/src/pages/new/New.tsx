@@ -36,7 +36,7 @@ console.log(url)
         img: url,
       };
 
-      await axios.post("http://localhost:8005/api/auth/register", newUser);
+      await axios.post("http://localhost:8005/api/auth/register", newUser   , {headers:{isAdmin:localStorage.getItem(`user`)}});
     } catch (err) {
       console.log(err);
     }

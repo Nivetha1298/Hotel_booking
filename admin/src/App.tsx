@@ -13,6 +13,8 @@ import { hotelColumns, roomColumns, userColumns } from "./datatablesource";
 import NewHotel from "./pages/NewHotel/NewHotel";
 import NewRoom from "./pages/newRoom/NewRoom";
 import Edithotel from "./pages/edithotel/Edithotel";
+import Editroom from "./pages/EditRoom/Editroom";
+import { Logout } from "@mui/icons-material";
 
 function App() {
 ;
@@ -33,6 +35,8 @@ function App() {
         <Routes>
           <Route path="/">
             <Route path="login" element={<Login />} />
+            
+
             <Route
               index
               element={
@@ -106,7 +110,7 @@ function App() {
                 path=":productId"
                 element={
                   <ProtectedRoute>
-                  
+                  <Editroom/>
                   </ProtectedRoute>
                 }
               />
@@ -118,9 +122,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+
             </Route>
+
+
           </Route>
+       
         </Routes>
+                                               
       </BrowserRouter>
     </div>
   );
